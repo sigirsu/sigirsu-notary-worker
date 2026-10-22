@@ -38,6 +38,17 @@ export default {
         return new Response(null, { status: 204, headers: corsHeaders() });
       }
 
+       // --- DEBUG TEMPORAL — BORRAR DESPUES DE DIAGNOSTICAR ---
+      if (request.method === "GET" && new URL(request.url).pathname === "/debug") {
+        return new Response(JSON.stringify({
+          WORKER_SECRET: env.WORKER_SECRET ? `set (${env.WORKER_SECRET.length} chars)` : "MISSING",
+          PRIVATE_KEY: env.PRIVATE_KEY ? `set (${env.PRIVATE_KEY.length} chars)` : "MISSING",
+          RPC_URL: env.RPC_URL ? "set" : "MISSING",
+          CONTRACT_ADDRESS: env.CONTRACT_ADDRESS || "MISSING",
+        }), { headers: { "content-type": "application/json" }});
+      }
+      // --- FIN DEBUG ---
+
       if (request.method !== "POST") {
         return json({ ok: false, error: "method_not_allowed" }, 405);
       }
