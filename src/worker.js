@@ -31,6 +31,13 @@ const TOKEN_WINDOW_SECONDS = 60;
 export default {
   async fetch(request, env) {
     try {
+      // Preflight CORS. Las llamadas desde el browser hacen OPTIONS antes
+      // del POST real; respondemos 204 con los headers de CORS. Las llamadas
+      // server-side desde PHP no mandan OPTIONS y no se ven afectadas.
+      if (request.method === "OPTIONS") {
+        return new Response(null, { status: 204, headers: corsHeaders() });
+      }
+
       if (request.method !== "POST") {
         return json({ ok: false, error: "method_not_allowed" }, 405);
       }
@@ -57,6 +64,20 @@ export default {
     }
   },
 };
+
+// Headers CORS. Permitir "*" es seguro porque la autorizacion real la
+// impone el token HMAC: sin WORKER_SECRET no se puede firmar un token
+// valido, y sin token valido el Worker responde 401. Es decir, aunque
+// cualquier origen pueda hacer fetch, solo el servidor PHP (que tiene
+// el secret compartido) puede obtener respuestas utiles.
+function corsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, X-SIGIRSU-TOKEN",
+    "Access-Control-Max-Age": "86400",
+  };
+}
 
 // --- /sign ---------------------------------------------------------------
 
@@ -189,6 +210,7 @@ function json(data, status = 200) {
       "content-type": "application/json; charset=utf-8",
       "x-content-type-options": "nosniff",
       "cache-control": "no-store",
+      ...corsHeaders(),
     },
   });
 }
