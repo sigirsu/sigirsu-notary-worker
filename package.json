@@ -1,0 +1,11 @@
+{
+  "name": "sigirsu-notary-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker que custodia la clave privada de la wallet SIGIRSU y firma transacciones de notarizacion en Polygon.",
+  "main": "src/worker.js",
+  "dependencies": {
+    "ethers": "^6.11.1"
+  }
+}

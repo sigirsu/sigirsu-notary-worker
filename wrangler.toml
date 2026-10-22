@@ -1,0 +1,21 @@
+# Configuracion del Cloudflare Worker sigirsu-notary.
+#
+# Documentacion: ../sigirsu/docs/blockchain_notary/WORKER.md
+#
+# Despliegue sin consola:
+#   1. Crear repo en github.com con estos archivos
+#      (package.json, wrangler.toml, src/worker.js, src/abi.json).
+#   2. Cloudflare Dashboard -> Workers & Pages -> Create ->
+#      "Continue with GitHub" -> seleccionar el repo. Cloudflare
+#      detecta package.json, corre `npm install` y deploya.
+#   3. Settings -> Variables and Secrets -> Add secret:
+#        PRIVATE_KEY       (clave privada de la wallet SIGIRSU, de MetaMask)
+#        RPC_URL           (URL de Alchemy Polygon mainnet)
+#        WORKER_SECRET     (mismo valor que BLOCKCHAIN_WORKER_SECRET en .env SIGIRSU)
+#        CONTRACT_ADDRESS  (0xF4Ad4c2Ecd4B9c32E779aF55fB38a233EA40534a)
+#   4. Settings -> Rate limiting rules -> 20 req/min por IP.
+
+name = "sigirsu-notary"
+main = "src/worker.js"
+compatibility_date = "2024-10-01"
+compatibility_flags = ["nodejs_compat"]
