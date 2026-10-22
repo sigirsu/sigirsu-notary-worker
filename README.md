@@ -1,7 +1,7 @@
 # sigirsu-notary-worker
 
 Cloudflare Worker que custodia la clave privada de la wallet SIGIRSU y firma
-transacciones del contrato `SigirsuNotary` en Polygon.
+transacciones del contrato `SigirsuNotary` en Polygon..
 
 - **Contrato**: `0xF4Ad4c2Ecd4B9c32E779aF55fB38a233EA40534a`
 - **Red**: Polygon Mainnet (Chain ID 137)
