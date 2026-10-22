@@ -13,7 +13,7 @@ transacciones del contrato `SigirsuNotary` en Polygon..
 Toda la operación, seguridad y procedimientos del Worker están en el repo
 principal de SIGIRSU, en
 [`sigirsu/docs/blockchain_notary/WORKER.md`](../sigirsu/docs/blockchain_notary/WORKER.md).
-Léelo antes de deployar o rotar secrets..
+Léelo antes de deployar o rotar secrets...
 
 ## Despliegue sin consola
 
