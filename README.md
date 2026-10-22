@@ -8,7 +8,8 @@ transacciones del contrato `SigirsuNotary` en Polygon..
 - **Polygonscan**: https://polygonscan.com/address/0xF4Ad4c2Ecd4B9c32E779aF55fB38a233EA40534a
 - **Sourcify**: https://repo.sourcify.dev/137/0xF4Ad4c2Ecd4B9c32E779aF55fB38a233EA40534a
 
-## Documentación
+## Documentación sobre la implementacion
+## Documentación sobre la implementacion
 
 Toda la operación, seguridad y procedimientos del Worker están en el repo
 principal de SIGIRSU, en
