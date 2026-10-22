@@ -50,7 +50,7 @@ export default {
       // --- FIN DEBUG ---
 
       if (request.method !== "POST") {
-        return json({ ok: false, error: "method_not_allowed" }, 405);
+        return json({ ok: false, error: "method_not_allowed_v2" }, 405);
       }
 
       const token = request.headers.get("X-SIGIRSU-TOKEN") || "";
