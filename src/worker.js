@@ -11,7 +11,7 @@
 //   POST /verify  -> lee un TXID de Polygon y confronta su hash on-chain
 //                    con el hash esperado. Devuelve { ok, ... }.
 //
-// Secrets (en Cloudflare Dashboard):
+// Secrets (en Cloudflare Dashboard -> Variables y secretos de runtime):
 //   PRIVATE_KEY       (clave privada hex de la wallet SIGIRSU)
 //   RPC_URL           (Alchemy u otro provider Polygon mainnet)
 //   WORKER_SECRET     (HMAC-SHA256 compartido con el .env de SIGIRSU)
@@ -38,19 +38,8 @@ export default {
         return new Response(null, { status: 204, headers: corsHeaders() });
       }
 
-       // --- DEBUG TEMPORAL — BORRAR DESPUES DE DIAGNOSTICAR ---
-      if (request.method === "GET" && new URL(request.url).pathname === "/debug") {
-        return new Response(JSON.stringify({
-          WORKER_SECRET: env.WORKER_SECRET ? `set (${env.WORKER_SECRET.length} chars)` : "MISSING",
-          PRIVATE_KEY: env.PRIVATE_KEY ? `set (${env.PRIVATE_KEY.length} chars)` : "MISSING",
-          RPC_URL: env.RPC_URL ? "set" : "MISSING",
-          CONTRACT_ADDRESS: env.CONTRACT_ADDRESS || "MISSING",
-        }), { headers: { "content-type": "application/json" }});
-      }
-      // --- FIN DEBUG ---
-
       if (request.method !== "POST") {
-        return json({ ok: false, error: "method_not_allowed_v2" }, 405);
+        return json({ ok: false, error: "method_not_allowed" }, 405);
       }
 
       const token = request.headers.get("X-SIGIRSU-TOKEN") || "";
